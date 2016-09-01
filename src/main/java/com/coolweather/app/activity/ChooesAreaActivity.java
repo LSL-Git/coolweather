@@ -2,7 +2,10 @@ package com.coolweather.app.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +57,13 @@ public class ChooesAreaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("city_selected", false)) {
+            Intent intent = new Intent(this, WeatherActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         setContentView(R.layout.choose_area);
         titleText = (TextView) findViewById(R.id.title_text);
         listView = (ListView) findViewById(R.id.list_view);
@@ -69,10 +79,15 @@ public class ChooesAreaActivity extends Activity {
                 } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(index);
                     queryCounties();
+                } else if (currentLevel == LEVEL_COUNTY) {
+                    String countyCode = countyList.get(index).getCountyCode();
+                    Intent intent = new Intent(ChooesAreaActivity.this, WeatherActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
-        queryProvince();
+        queryProvince();   // 加载省级数据
     }
 
     private void queryProvince() {
@@ -174,8 +189,8 @@ public class ChooesAreaActivity extends Activity {
         });
 
     }
-    /*
-    弹出对话框
+    /**
+     * 弹出对话框
      */
     private void showProgressDialog() {
         if (progressDialog == null) {
@@ -185,16 +200,16 @@ public class ChooesAreaActivity extends Activity {
         }
         progressDialog.show();
     }
-    /*
-    关闭对话框
+    /**
+     * 关闭对话框
      */
     private void closeProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
-    /*
-    捕获Back按键，根据当前的级别来判断，此时应该返回市列表、省列表、还是直接退出
+    /**
+     * 捕获Back按键，根据当前的级别来判断，此时应该返回市列表、省列表、还是直接退出
      */
     @Override
     public void onBackPressed() {
