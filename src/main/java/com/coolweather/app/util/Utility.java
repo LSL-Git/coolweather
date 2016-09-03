@@ -7,6 +7,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.coolweather.app.model.City;
 import com.coolweather.app.model.County;
@@ -87,6 +88,7 @@ public class Utility {
      * 解析服务器返回的JSON数据，并将解析出的数据存储到本地。
      */
     public static void handleWeatherResponse(Context context, String response) {
+        Log.e("Utility", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");

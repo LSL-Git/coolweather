@@ -1,10 +1,11 @@
 package com.coolweather.app.util;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /** 负责向服务器发送请求
@@ -30,6 +31,7 @@ public class HttpUtil {
                     while ((line = bufferedReader.readLine()) != null) {
                         builder.append(line);
                     }
+                    Log.e("HttpUtil", "-------" + builder.toString());
                     if (listener != null) {
                         // 回调onFinish()方法
                         listener.onFinish(builder.toString());
@@ -39,6 +41,7 @@ public class HttpUtil {
                         // 回调onError()方法
                         listener.onError(e);
                     }
+                    e.printStackTrace();
                 } finally {
                     if (connection != null) {
                         connection.disconnect();
