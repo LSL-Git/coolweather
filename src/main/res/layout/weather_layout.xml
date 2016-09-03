@@ -11,11 +11,11 @@
 
         <Button
             android:id="@+id/switch_city"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="#F00"/>
+            android:background="@mipmap/home"/>
 
         <TextView
             android:id="@+id/city_name"
@@ -27,12 +27,12 @@
 
         <Button
             android:id="@+id/refresh_weather"
-            android:layout_width="30dp"
+            android:layout_width="35dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="#00F"/>
+            android:background="@mipmap/re"/>
     </RelativeLayout>
 
     <RelativeLayout
